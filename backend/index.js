@@ -26,14 +26,12 @@ async function connectToDatabase() {
   }
 }
 
-
 function authenticateUser(req, res, next) {
   if (!req.session || !req.session.userId) {
     return res.status(401).json({ message: "Unauthorized" });
   }
   next();
 }
-
 
 app.get("/", async (req, res) => {
   try {
@@ -44,7 +42,6 @@ app.get("/", async (req, res) => {
   }
 });
 
-
 app.post("/register", async (req, res) => {
   const { username, password, role } = req.body;
 
@@ -52,29 +49,28 @@ app.post("/register", async (req, res) => {
     const db = await connectToDatabase();
     const usersCollection = db.collection("Users");
 
-
     const existingUser = await usersCollection.findOne({ username });
     if (existingUser) {
       return res.status(400).json({ message: "Username already exists" });
     }
 
-
     const hashedPassword = await bcrypt.hash(password, 10);
 
-   
     const result = await usersCollection.insertOne({
       username,
       password: hashedPassword,
-      role: role || "user", 
+      role: role || "user",
     });
 
-    res.status(201).json({ message: "User registered successfully", userId: result.insertedId });
+    res.status(201).json({
+      message: "User registered successfully",
+      userId: result.insertedId,
+    });
   } catch (error) {
     console.error("Error registering user", error);
     res.status(500).json({ message: "Internal server error" });
   }
 });
-
 
 app.post("/login", async (req, res) => {
   const { username, password } = req.body;
@@ -83,20 +79,19 @@ app.post("/login", async (req, res) => {
     const db = await connectToDatabase();
     const usersCollection = db.collection("Users");
 
-    
     const user = await usersCollection.findOne({ username });
 
     if (!user) {
       return res.status(401).json({ message: "Invalid username or password" });
     }
 
-   
     const passwordMatch = await bcrypt.compare(password, user.password);
 
     if (passwordMatch) {
-   
-      req.session.userId = user._id;
-      res.json({ message: "Login successful", role: user.role });
+      res.json({
+        message: "Login successful",
+        role: user.role,
+      });
     } else {
       res.status(401).json({ message: "Invalid username or password" });
     }
@@ -106,14 +101,14 @@ app.post("/login", async (req, res) => {
   }
 });
 
-
 app.get("/user", authenticateUser, async (req, res) => {
   try {
     const db = await connectToDatabase();
     const usersCollection = db.collection("Users");
 
- 
-    const user = await usersCollection.findOne({ _id: ObjectID(req.session.userId) });
+    const user = await usersCollection.findOne({
+      _id: ObjectID(req.session.userId),
+    });
 
     if (user) {
       res.json({ username: user.username, role: user.role });
