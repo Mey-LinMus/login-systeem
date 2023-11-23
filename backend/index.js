@@ -101,7 +101,7 @@ app.post("/login", async (req, res) => {
   }
 });
 
-app.get("/user", authenticateUser, async (req, res) => {
+app.get("/users", authenticateUser, async (req, res) => {
   try {
     const db = await connectToDatabase();
     const usersCollection = db.collection("Users");
