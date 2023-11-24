@@ -23,11 +23,23 @@ async function connectToDatabase() {
   }
 }
 
+const isStrongPassword = (password) => {
+  return password.length >= 8;
+};
+
 router.post("/register", async (req, res) => {
   const { email, password, role } = req.body;
 
+  if (!email) {
+    return res.status(400).json({ message: "Please enter a valid email" });
+  }
+
   if (!isValidEmail(email)) {
-    return res.status(400).json({ message: "Invalid email format" });
+    return res.status(400).json({ message: "Please enter a valid email address" });
+  }
+
+  if (!isStrongPassword(password)) {
+    return res.status(400).json({ message: "Password is not strong enough" });
   }
 
   try {

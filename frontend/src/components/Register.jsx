@@ -9,8 +9,32 @@ function Register() {
   const [message, setMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
+  const isValidEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const isStrongPassword = (password) => {
+    return password.length >= 8;
+  };
+
   const handleRegister = async () => {
     try {
+      if (!email) {
+        setErrorMessage("Please enter a valid email");
+        return;
+      }
+
+      if (!isValidEmail(email)) {
+        setErrorMessage("Please enter a valid email address");
+        return;
+      }
+
+      if (!isStrongPassword(password)) {
+        setErrorMessage("Password is not strong enough");
+        return;
+      }
+
       const response = await fetch("http://localhost:8080/register", {
         method: "POST",
         headers: {
@@ -29,7 +53,7 @@ function Register() {
     } catch (error) {
       console.error("Error registering user", error);
 
-      setErrorMessage("User already exist ＞﹏＜");
+      setErrorMessage("User already exists ＞﹏＜");
     }
   };
 
@@ -44,8 +68,15 @@ function Register() {
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+          title="Invalid email format"
           required
         />
+        {email && !isValidEmail(email) && (
+          <p style={{ color: "#930000", fontWeight: "bold" }}>
+            Please enter a valid email address.
+          </p>
+        )}
         <br />
 
         <input
@@ -57,6 +88,11 @@ function Register() {
           onChange={(e) => setPassword(e.target.value)}
           required
         />
+        {password && !isStrongPassword(password) && (
+          <p style={{ color: "#930000", fontWeight: "bold" }}>
+            Password should be at least 8 characters long.
+          </p>
+        )}
         <br />
 
         <select
@@ -71,7 +107,11 @@ function Register() {
         </select>
         <br />
 
-        <button type="button" onClick={handleRegister}>
+        <button
+          type="button"
+          onClick={handleRegister}
+          disabled={!email || !password || !isStrongPassword(password)}
+        >
           Register
         </button>
 
