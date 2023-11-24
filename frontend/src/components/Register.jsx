@@ -78,8 +78,11 @@ function Register() {
         {message && <p>{message}</p>}
         {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
 
-        <p>
-          Already have an account? <Link to="/login">Login</Link>
+        <p className="undertext">
+          Already have an account?{" "}
+          <Link to="/login" className="undertextLink">
+            Login
+          </Link>
         </p>
       </form>
     </div>

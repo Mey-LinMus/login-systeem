@@ -3,7 +3,7 @@
   max-width: 500px;
   margin: 0 auto;
   padding: 20px;
-  margin-top: 150px;
+  margin-top: 100px;
   background: rgba(255, 255, 255, 0.2);
   border-radius: 16px;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
@@ -21,25 +21,62 @@ form {
   flex-direction: column;
 }
 
-label {
-  margin-bottom: 5px;
-}
-
 input,
 select {
-  padding: 8px;
-  margin-bottom: 10px;
-  border: 1px solid #ffffff;
-  border-radius: 20px;
+  margin-top: 15px;
+  border: 1.5px solid #ffffff;
+  border-radius: 30px;
   background-color: transparent;
+  padding: 15px 10px;
+  color: rgb(255, 255, 255);
+  font-size: medium;
+}
+
+select {
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6"><path d="M0 0l6 6 6-6z" fill="%23ffffff"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 15px top 50%;
+  background-size: 15px;
+}
+
+select option {
+  font-size: 16px;
+}
+
+select:focus {
+  border-radius: 20px;
+  color: black;
+  outline: none;
+  border-color: rgb(0, 26, 54);
+  box-shadow: 0 0 5px rgba(4, 48, 95, 0.5);
+}
+
+input::placeholder {
+  color: rgb(255, 255, 255);
+  font-size: medium;
+}
+
+.undertext {
+  text-align: center;
+}
+
+.undertextLink {
+  text-decoration: none;
+  color: #ffffff;
+  font-weight: bold;
 }
 
 button {
+  font-weight: bold;
   margin-bottom: 10px;
+  margin-top: 10px;
   padding: 10px;
   background-color: #ffffff;
   color: rgb(0, 0, 0);
   cursor: pointer;
   border-radius: 20px;
   border: none;
+  font-size: large;
 }

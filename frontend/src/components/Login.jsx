@@ -70,8 +70,11 @@ function Login() {
         {message && <p>{message}</p>}
         {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
 
-        <p>
-          Don't have an account? <Link to="/">Register</Link>
+        <p className="undertext">
+          Don't have an account?{" "}
+          <Link to="/" className="undertextLink">
+            Register
+          </Link>
         </p>
       </form>
     </div>
