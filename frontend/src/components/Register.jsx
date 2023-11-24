@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import "../styles/register.css"
-
+import { Link } from "react-router-dom";
+import "../styles/forum.css";
 
 function Register() {
   const [username, setUsername] = useState("");
@@ -62,14 +62,18 @@ function Register() {
           value={role}
           onChange={(e) => setRole(e.target.value)}
         >
-          <option value="teacher">teacher</option>
-          <option value="student">student</option>
+          <option value="teacher">Teacher</option>
+          <option value="student">Student</option>
         </select>
         <br />
 
         <button type="button" onClick={handleRegister}>
           Register
         </button>
+
+        <p>
+          Already have an account? <Link to="/login">Login</Link>
+        </p>
       </form>
     </div>
   );

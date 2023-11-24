@@ -1,9 +1,11 @@
 import React, { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
 import "../styles/forum.css";
 
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const handleLogin = async () => {
     try {
@@ -21,6 +23,10 @@ function Login() {
 
       const data = await response.json();
       alert(data.message);
+
+      if (data.message === "Login successful") {
+        navigate("/home");
+      }
     } catch (error) {
       console.error("Error logging in", error);
       alert(`Error: ${error.message}`);
@@ -56,6 +62,11 @@ function Login() {
         <button type="button" onClick={handleLogin}>
           Login
         </button>
+
+        <p>
+          Already have an account?
+          <Link to="/">Register</Link>
+        </p>
       </form>
     </div>
   );
