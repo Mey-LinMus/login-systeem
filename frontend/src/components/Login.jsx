@@ -3,7 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import "../styles/forum.css";
 
 function Login() {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -16,7 +16,7 @@ function Login() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({ email, password }),
       });
 
       if (!response.ok) {
@@ -33,7 +33,7 @@ function Login() {
     } catch (error) {
       console.error("Error logging in", error);
 
-      setErrorMessage("Username or password is wrong ＞﹏＜");
+      setErrorMessage("Email or password is wrong ＞﹏＜");
     }
   };
 
@@ -42,12 +42,12 @@ function Login() {
       <h2>Login</h2>
       <form>
         <input
-          type="text"
-          id="username"
-          name="username"
+          type="email"
+          id="email"
+          name="Email"
           placeholder="Email"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
           required
         />
         <br />

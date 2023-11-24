@@ -24,16 +24,20 @@ async function connectToDatabase() {
 }
 
 router.post("/login", async (req, res) => {
-  const { username, password } = req.body;
+  const { email, password } = req.body;
+
+  if (!isValidEmail(email)) {
+    return res.status(400).json({ message: "Invalid email format" });
+  }
 
   try {
     const db = await connectToDatabase();
     const usersCollection = db.collection("Users");
 
-    const user = await usersCollection.findOne({ username });
+    const user = await usersCollection.findOne({ email });
 
     if (!user) {
-      return res.status(401).json({ message: "Invalid username or password" });
+      return res.status(401).json({ message: "Invalid email or password" });
     }
 
     const passwordMatch = await bcrypt.compare(password, user.password);
@@ -44,12 +48,17 @@ router.post("/login", async (req, res) => {
         role: user.role,
       });
     } else {
-      res.status(401).json({ message: "Invalid username or password" });
+      res.status(401).json({ message: "Invalid email or password" });
     }
   } catch (error) {
     console.error("Error logging in", error);
     res.status(500).json({ message: "Internal server error" });
   }
 });
+
+function isValidEmail(email) {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+}
 
 module.exports = router;

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import "../styles/forum.css";
 
 function Register() {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("user");
   const [message, setMessage] = useState("");
@@ -16,7 +16,7 @@ function Register() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ username, password, role }),
+        body: JSON.stringify({ email, password, role }),
       });
 
       if (!response.ok) {
@@ -38,12 +38,12 @@ function Register() {
       <h2>Registration</h2>
       <form>
         <input
-          type="text"
-          id="username"
-          name="username"
+          type="email"
+          id="email"
+          name="email"
           placeholder="Email"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
           required
         />
         <br />

@@ -24,21 +24,25 @@ async function connectToDatabase() {
 }
 
 router.post("/register", async (req, res) => {
-  const { username, password, role } = req.body;
+  const { email, password, role } = req.body;
+
+  if (!isValidEmail(email)) {
+    return res.status(400).json({ message: "Invalid email format" });
+  }
 
   try {
     const db = await connectToDatabase();
     const usersCollection = db.collection("Users");
 
-    const existingUser = await usersCollection.findOne({ username });
+    const existingUser = await usersCollection.findOne({ email });
     if (existingUser) {
-      return res.status(400).json({ message: "Username already exists" });
+      return res.status(400).json({ message: "Email already exists" });
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const result = await usersCollection.insertOne({
-      username,
+      email,
       password: hashedPassword,
       role: role || "user",
     });
@@ -52,5 +56,10 @@ router.post("/register", async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 });
+
+function isValidEmail(email) {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+}
 
 module.exports = router;
