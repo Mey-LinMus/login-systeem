@@ -68,7 +68,19 @@ function Login() {
         </button>
 
         {message && <p>{message}</p>}
-        {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
+        {errorMessage && (
+          <p
+            style={{
+              color: "white",
+              backgroundColor: "#930000",
+              padding: "10px 10px",
+              borderRadius: "10px",
+              width: "52%",
+            }}
+          >
+            {errorMessage}
+          </p>
+        )}
 
         <p className="undertext">
           Don't have an account?{" "}
