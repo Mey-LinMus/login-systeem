@@ -5,6 +5,8 @@ import "../styles/forum.css";
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 
   const handleLogin = async () => {
@@ -22,20 +24,22 @@ function Login() {
       }
 
       const data = await response.json();
-      alert(data.message);
+  
+      setMessage(data.message);
 
       if (data.message === "Login successful") {
         navigate("/home");
       }
     } catch (error) {
       console.error("Error logging in", error);
-      alert(`Error: ${error.message}`);
+
+      setErrorMessage("Username or password is wrong ＞﹏＜");
     }
   };
 
   return (
     <div className="App">
-      <h2>User Login</h2>
+      <h2>Login</h2>
       <form>
         <label htmlFor="username">Username:</label>
         <input
@@ -63,9 +67,11 @@ function Login() {
           Login
         </button>
 
+        {message && <p>{message}</p>}
+        {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
+
         <p>
-          Already have an account?
-          <Link to="/">Register</Link>
+          Don't have an account? <Link to="/">Register</Link>
         </p>
       </form>
     </div>

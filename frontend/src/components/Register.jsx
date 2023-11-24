@@ -6,6 +6,8 @@ function Register() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("user");
+  const [message, setMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleRegister = async () => {
     try {
@@ -22,16 +24,18 @@ function Register() {
       }
 
       const data = await response.json();
-      alert(data.message);
+
+      setMessage(data.message);
     } catch (error) {
       console.error("Error registering user", error);
-      alert(`Error: ${error.message}`);
+
+      setErrorMessage("User already exist ＞﹏＜" );
     }
   };
 
   return (
     <div className="App">
-      <h2>User Registration</h2>
+      <h2>Registration</h2>
       <form>
         <label htmlFor="username">Username:</label>
         <input
@@ -70,6 +74,9 @@ function Register() {
         <button type="button" onClick={handleRegister}>
           Register
         </button>
+
+        {message && <p>{message}</p>}
+        {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
 
         <p>
           Already have an account? <Link to="/login">Login</Link>
