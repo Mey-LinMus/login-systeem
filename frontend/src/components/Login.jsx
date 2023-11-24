@@ -5,6 +5,7 @@ import "../styles/forum.css";
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [rememberMe, setRememberMe] = useState(false);
   const [message, setMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
@@ -28,6 +29,10 @@ function Login() {
       setMessage(data.message);
 
       if (data.message === "Login successful") {
+        if (rememberMe) {
+          localStorage.setItem("user", JSON.stringify({ email }));
+        }
+
         navigate("/home");
       }
     } catch (error) {
@@ -61,6 +66,18 @@ function Login() {
           onChange={(e) => setPassword(e.target.value)}
           required
         />
+        <br />
+
+        <label>
+          <input
+            type="checkbox"
+            id="rememberMe"
+            name="rememberMe"
+            checked={rememberMe}
+            onChange={() => setRememberMe(!rememberMe)}
+          />
+          Remember me
+        </label>
         <br />
 
         <button type="button" onClick={handleLogin}>
