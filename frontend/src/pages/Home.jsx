@@ -1,9 +1,13 @@
 import React from "react";
+import "../styles/home.css";
 
 const Home = () => {
   return (
-    <div>
-      <h1>Homepage</h1>
+    <div className="homepage">
+      <h1>
+        Welcome <br /> <br />
+        o(*￣▽￣*)ブ
+      </h1>
     </div>
   );
 };
