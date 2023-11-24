@@ -24,7 +24,7 @@ function Login() {
       }
 
       const data = await response.json();
-  
+
       setMessage(data.message);
 
       if (data.message === "Login successful") {
@@ -41,22 +41,22 @@ function Login() {
     <div className="App">
       <h2>Login</h2>
       <form>
-        <label htmlFor="username">Username:</label>
         <input
           type="text"
           id="username"
           name="username"
+          placeholder="Email"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           required
         />
         <br />
 
-        <label htmlFor="password">Password:</label>
         <input
           type="password"
           id="password"
           name="password"
+          placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required

@@ -29,7 +29,7 @@ function Register() {
     } catch (error) {
       console.error("Error registering user", error);
 
-      setErrorMessage("User already exist ＞﹏＜" );
+      setErrorMessage("User already exist ＞﹏＜");
     }
   };
 
@@ -37,30 +37,30 @@ function Register() {
     <div className="App">
       <h2>Registration</h2>
       <form>
-        <label htmlFor="username">Username:</label>
         <input
           type="text"
           id="username"
           name="username"
+          placeholder="Email"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           required
         />
         <br />
 
-        <label htmlFor="password">Password:</label>
         <input
           type="password"
           id="password"
           name="password"
+          placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
         />
         <br />
 
-        <label htmlFor="role">Role:</label>
         <select
+          placeholder="Role"
           id="role"
           name="role"
           value={role}
