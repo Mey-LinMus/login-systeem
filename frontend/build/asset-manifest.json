@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/static/css/main.3d16f0e0.css",
+    "main.js": "/static/js/main.be7ae3f3.js",
+    "static/js/787.9e9f4ffd.chunk.js": "/static/js/787.9e9f4ffd.chunk.js",
+    "static/media/Gradient.png": "/static/media/Gradient.ebcf4fc7e96994860626.png",
+    "index.html": "/index.html",
+    "main.3d16f0e0.css.map": "/static/css/main.3d16f0e0.css.map",
+    "main.be7ae3f3.js.map": "/static/js/main.be7ae3f3.js.map",
+    "787.9e9f4ffd.chunk.js.map": "/static/js/787.9e9f4ffd.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.3d16f0e0.css",
+    "static/js/main.be7ae3f3.js"
+  ]
+}

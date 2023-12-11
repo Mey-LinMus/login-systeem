@@ -1,3 +1,4 @@
+// src/components/Login.jsx
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import "../styles/forum.css";
@@ -33,7 +34,12 @@ function Login() {
           localStorage.setItem("user", JSON.stringify({ email }));
         }
 
-        navigate("/home");
+  
+        if (data.role === "teacher") {
+          navigate("/teacher");
+        } else {
+          navigate("/home");
+        }
       }
     } catch (error) {
       console.error("Error logging in", error);
